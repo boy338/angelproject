@@ -1,0 +1,71 @@
+
+.navbar-brand {
+	padding: 0px;
+}
+
+.navbar-brand > img {
+	height: 100%;
+	padding: 0px;
+}
+
+body {
+	background: url('http://188.166.240.142/wp-content/uploads/2016/09/BGWEB.jpg');
+	background-size: cover;	
+}
+
+.img-responsive {
+    margin: 0 auto;
+}
+
+.carousel{
+    -moz-border-radius: 10px; /* FF1+ */
+    -webkit-border-radius: 10px; /* Saf3-4, iOS 1+, Android 1.5+ */
+    border-radius: 10px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+    overflow:hidden;
+    z-index: 1000;
+}
+
+.nav.navbar-nav.navbar-right li a {
+    color: #fff;
+	font-size: 17px !important;
+	font-weight: bold;
+}
+
+.thumbnail .caption {
+    padding: 9px;
+    color: #000;
+}
+
+.wrapper-activity {
+	background: rgba(0,0,0,0.4);
+	padding: 10px; 
+	margin: 10px;
+	-moz-border-radius: 10px; /* FF1+ */
+    -webkit-border-radius: 10px; /* Saf3-4, iOS 1+, Android 1.5+ */
+    border-radius: 10px; /* Opera 10.5, IE9, Saf5, Chrome, FF4 */
+}
+
+.wrapper-contact {
+	color: #000;
+}
+
+@media (max-width: $screen-sm)  {
+	$navbar-height: 50px;
+	body {
+        background-color: red;
+    }
+	.navbar {
+		min-height: $navbar-height;
+	}
+
+	.navbar-brand {
+		height: $navbar-height;
+	}
+	
+	.navbar-toggle {
+		margin-top: 8px;;
+		margin-bottom: 8px;
+	}
+}
+
+
