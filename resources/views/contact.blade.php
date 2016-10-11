@@ -13,7 +13,7 @@
 
                         <!-- Success message -->
                         <div class="alert alert-success" role="alert" id="success_message">
-                                Success <i class="glyphicon glyphicon-thumbs-up"></i> Thanks for contacting us, we will get back to you shortly.
+                                สำเร็จ <i class="glyphicon glyphicon-thumbs-up"></i> ขอบคุณที่ติดต่อเข้ามา, ทางเราจะติดต่อกลับไปเร็วๆนี้ 
                         </div>
 
                         <!-- Select Basic -->
@@ -22,10 +22,10 @@
                             <div class="col-md-7 selectContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
-                                    <select name="state" class="form-control selectpicker" >
-                                        <option value=" " >สอบถาม</option>
-                                        <option>ซื้อขาย</option>
-                                        <option>นัดหมาย</option>
+                                    <select name="title" class="form-control selectpicker" >
+                                        <option value="question" selected>สอบถาม</option>
+                                        <option value="message">ซื้อขาย</option>
+                                        <option value="appoint">นัดหมาย</option>
                                     </select>
                                 </div>
                             </div>
@@ -37,7 +37,7 @@
 							<div class="col-md-7 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<input name="last_name" placeholder="ชื่อ-นามสกุลจริง" class="form-control"  type="text">
+									<input name="name" placeholder="ชื่อ-นามสกุลจริง" class="form-control"  type="text">
 								</div>
 							</div>
 						</div>
