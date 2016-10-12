@@ -5,16 +5,33 @@
 		<div class="row wrapper-contact">
 			<div class="col-sm-4 col-md-8 col-md-offset-2">
 
-				<form class="well form-horizontal" action=" " method="post"  id="contact_form">
+				<form class="well form-horizontal" action="{{ url('/contact') }}" method="post"  id="contact_form">
+					{{ csrf_field() }}
 					<fieldset>
 
 						<!-- Form Name -->
 						<legend><strong>ติดต่อ</strong></legend>
 
-                        <!-- Success message -->
-                        <div class="alert alert-success" role="alert" id="success_message">
-                                สำเร็จ <i class="glyphicon glyphicon-thumbs-up"></i> ขอบคุณที่ติดต่อเข้ามา, ทางเราจะติดต่อกลับไปเร็วๆนี้ 
-                        </div>
+						@if (count($errors) > 0)
+						<!-- False message -->
+    					<div class="alert alert-danger">
+							<button type="button" class="close" data-dismiss="alert">
+        						<span aria-hidden="true">&times;</span>
+        						<span class="sr-only">Close</span>
+    						</button>
+        					<ul>
+            				@foreach ($errors->all() as $error)
+                				<li>{{ $error }}</li>
+            				@endforeach
+        					</ul>
+    					</div>
+						@endif
+
+						@if(session()->has('success'))
+							<!-- Success message -->
+            				@include('partials/alert', ['type' => 'success', 'message' => session('success')])
+				        @endif
+
 
                         <!-- Select Basic -->
                         <div class="form-group">
@@ -32,23 +49,23 @@
                         </div>
 				
 						<!-- Text input-->
-						<div class="form-group">
+						<div class="form-group @if ($errors->has('name')) has-error @endif">
 							<label class="col-md-4 control-label" >ชื่อ-นามสกุลจริง</label> 
 							<div class="col-md-7 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-									<input name="name" placeholder="ชื่อ-นามสกุลจริง" class="form-control"  type="text">
+									<input name="name" placeholder="ชื่อ-นามสกุลจริง" class="form-control" value="{{ old('name') }}" type="text">
 								</div>
 							</div>
 						</div>
 
 						<!-- Text input-->
-						<div class="form-group">
+						<div class="form-group @if ($errors->has('email')) has-error @endif">
 							<label class="col-md-4 control-label">อีเมล์ที่ติดต่อได้</label>  
 							<div class="col-md-7 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-									<input name="email" placeholder="อีเมล์ที่ติดต่อได้" class="form-control"  type="text">
+									<input name="email" placeholder="อีเมล์ที่ติดต่อได้" class="form-control" value="{{ old('email') }}" type="text">
 								</div>
 							</div>
 						</div>
@@ -56,23 +73,23 @@
 
 						<!-- Text input-->
 							   
-						<div class="form-group">
+						<div class="form-group @if ($errors->has('tel')) has-error @endif">
 							<label class="col-md-4 control-label">หมายเลขโทรศัพท์ที่ติดต่อได้</label>  
 							<div class="col-md-7 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-									<input name="phone" placeholder="0xxxxxxxxx" class="form-control" type="text">
+									<input name="tel" placeholder="0xxxxxxxxx" class="form-control" value="{{ old('tel') }}" type="text">
 								</div>
 							</div>
 						</div>
 
 						<!-- Text area -->
-						<div class="form-group">
+						<div class="form-group @if ($errors->has('message')) has-error @endif">
 							<label class="col-md-4 control-label">ข้อความ</label>
 							<div class="col-md-7 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="glyphicon glyphicon-pencil"></i></span>
-									<textarea class="form-control" name="comment" placeholder="" rows="8"></textarea>
+									<textarea class="form-control" name="message" placeholder="" rows="8">{{ old('message') }}</textarea>
 								</div>
 							</div>
 						</div>
@@ -91,9 +108,12 @@
 		</div>
 	</div>
 
-
-<script>
-
-</script>
+	@section('script')
+	<script>
+        $(function () {
+		});
+	</script>
+	@endsection
 
 @endsection
+

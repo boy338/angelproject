@@ -42,7 +42,7 @@
 					<li><a href="{{ url('/profile') }}">ประวัติ</a></li>
 					<li><a href="{{ url('/article') }}">บทความ</a></li>
 					<li><a href="{{ url('/activity') }}">กิจกรรม</a></li>
-					<li><a href="{{ url('/contact') }}">ติดต่อ</a></li>
+					<li><a href="{{ url('/contact/create') }}">ติดต่อ</a></li>
 					<!--
                     @if (Auth::guest())
                         <li><a href="{{ url('/login') }}">Login</a></li>
@@ -77,8 +77,9 @@
 
 		@yield('content')
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    	<!-- Include all compiled plugins (below), or include individual files as needed -->
+    	<script src="{{ asset('js/app.js') }}"></script>
+		@yield('script')
   </body>
 </html>

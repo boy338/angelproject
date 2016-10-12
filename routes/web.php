@@ -27,9 +27,15 @@ Route::get('/activity', function() {
 	return view('activity');
 });
 
-Route::get('/contact', function() {
-	return view('contact');
+// Contact
+Route::resource('contact', 'ContactController', ['except' => ['show', 'edit']]);
+
+/*
+Route::group(['prefix' => 'contact'], function() {
+	Route::get('create', 'ContactController@create');
+	Route::post('store', 'ContactController@store');
 });
+*/
 
 Auth::routes();
 
