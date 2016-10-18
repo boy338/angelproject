@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
+use App\Notifications\RegisterConfirmEmail;
+use App\Http\Requests\Auth\RegisterRequest;
+use App\Repositories\UserRepository;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -40,32 +43,46 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
+     * Handle a registration request for the application.
      *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param  App\Http\Requests\Auth\RegisterRequest  $request
+     * @param  App\Repositories\UserRepository  $userRepository
+     * @return \Illuminate\Http\Response
      */
-    protected function validator(array $data)
+    public function register(RegisterRequest $request, UserRepository $userRepository)
     {
-        return Validator::make($data, [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-        ]);
+        $user = $userRepository->store(
+            $request->all(),
+            str_random(30)
+        );
+
+		$this->notifyUser($user);	
+
+		return back()->with('success', trans('auth/verify.message'));
     }
 
     /**
-     * Create a new user instance after a valid registration.
+     * Notify user with email
      *
-     * @param  array  $data
-     * @return User
+     * @param  \App\User  $user
+     * @return void
      */
-    protected function create(array $data)
+    protected function notifyUser(User $user)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
+        $user->notify(new RegisterConfirmEmail($user->confirmation_code));
+    }
+
+    /**
+     * Handle a confirmation request
+     *
+     * @param  \App\Repositories\UserRepository $userRepository
+     * @param  string  $confirmation_code
+     * @return \Illuminate\Http\Response
+     */
+    public function confirm(UserRepository $userRepository, $confirmation_code)
+    {
+        $userRepository->confirm($confirmation_code);
+
+        return redirect('/')->with('confirm_success', trans('auth/verify.confirm-success'));
     }
 }

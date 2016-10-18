@@ -2,6 +2,10 @@
 
 @section('content')
 	<div class="container">
+		@if(session()->has('confirm_success'))
+        <!-- Success message -->
+        	@include('partials/alert', ['type' => 'success', 'message' => session('confirm_success')])
+        @endif
 		<div class="row">
 			<div class="col-md-6 col-md-offset-6 col-sm-12">
 				<img src="{{ asset('images/BG-01v5-md.png') }}" class="img-responsive" alt="Responsive image">

@@ -38,19 +38,18 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
 
-					<li><a href="{{ url('/') }}">หน้าหลัก</a></li>
-					<li><a href="{{ url('/profile') }}">ประวัติ</a></li>
-					<li><a href="{{ url('/article') }}">บทความ</a></li>
-					<li><a href="{{ url('/activity') }}">กิจกรรม</a></li>
-					<li><a href="{{ url('/contact/create') }}">ติดต่อ</a></li>
-					<!--
+					<li><a href="{{ url('/') }}">{{ trans('navbar.home') }}</a></li>
+					<li><a href="{{ url('/profile') }}">{{ trans('navbar.profile') }}</a></li>
+					<li><a href="{{ url('/article') }}">{{ trans('navbar.article') }}</a></li>
+					<li><a href="{{ url('/activity') }}">{{ trans('navbar.activity') }}</a></li>
+					<li><a href="{{ url('/contact/create') }}">{{ trans('navbar.contact') }}</a></li>
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
-                        <li><a href="{{ url('/register') }}">Register</a></li>
+                        <li><a href="{{ url('/login') }}">{{ trans('navbar.login') }}</a></li>
+                        <li><a href="{{ url('/register') }}">{{ trans('navbar.register') }}</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                                {{ Auth::user()->name }} <span class="caret"></span>
+                                {{ Auth::user()->username }} <span class="caret"></span>
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
@@ -58,7 +57,7 @@
                                     <a href="{{ url('/logout') }}"
                                         onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
-                                        Logout
+                                        {{ trans('navbar.logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -68,7 +67,6 @@
                             </ul>
                         </li>
                     @endif
-					-->
                 </ul>
 
 				</div>

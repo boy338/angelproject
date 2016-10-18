@@ -11,6 +11,15 @@
 |
 */
 
+
+Route::get('/admin', function () {
+    return view('backend.home');
+});
+
+Route::get('/admin/dashboard', function () {
+    return view('backend.dashboard');
+});
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -27,16 +36,15 @@ Route::get('/activity', function() {
 	return view('activity');
 });
 
+// Auth
+Auth::routes();
+
 // Contact
 Route::resource('contact', 'ContactController', ['except' => ['show', 'edit']]);
 
-/*
-Route::group(['prefix' => 'contact'], function() {
-	Route::get('create', 'ContactController@create');
-	Route::post('store', 'ContactController@store');
-});
-*/
+// Email confirmation
+Route::get('resend', 'Auth\RegisterController@resend');
+Route::get('confirm/{token}', 'Auth\RegisterController@confirm');
 
-Auth::routes();
 
 Route::get('/home', 'HomeController@index');

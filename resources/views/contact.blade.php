@@ -41,7 +41,7 @@
                                     <span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
                                     <select name="title" class="form-control selectpicker" >
                                         <option value="question" selected>สอบถาม</option>
-                                        <option value="message">ซื้อขาย</option>
+                                        <option value="message">วิเคราะห์เบอร์</option>
                                         <option value="appoint">นัดหมาย</option>
                                     </select>
                                 </div>

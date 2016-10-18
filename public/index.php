@@ -47,6 +47,12 @@ $app = require_once __DIR__.'/../bootstrap/app.php';
 |
 */
 
+function debug($data) {
+	echo "<pre>";
+	print_r($data);
+	echo "</pre>";
+}
+
 $kernel = $app->make(Illuminate\Contracts\Http\Kernel::class);
 
 $response = $kernel->handle(
