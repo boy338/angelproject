@@ -28,10 +28,11 @@ elixir(mix => {
 	mix.imageresize({ width:1200, height:800 }, { suffix: '-lg'});
 */
 
-// Copy bootstrap and AdminLTE CSS files to public directory
+	// Copy bootstrap and AdminLTE CSS files to public directory
     mix.copy('node_modules/admin-lte/bootstrap', 'public/backend/bootstrap');
     mix.copy('node_modules/admin-lte/dist', 'public/backend/admin-lte');
 	mix.copy('node_modules/admin-lte/plugins', 'public/backend/plugins');
+
 
     // Font Awesome
     mix.copy('node_modules/font-awesome', 'public/backend/font-awesome');

@@ -21,7 +21,7 @@
             <li class="header">MAIN NAVIGATION</li>
             <!-- Dashboard -->
             <li class="active">
-				<a href="#">
+				<a href="{{ url('back') }}">
 					<i class="fa fa-dashboard"></i> <span>Dashboard</span>
 				</a>
 			</li>
@@ -36,22 +36,23 @@
 					</span>
 				</a>
                 <ul class="treeview-menu">
-                    <li><a href="#">See all</a></li>
-                    <li><a href="#">Add</a></li>
+                    <li><a href="{{ url('user/sort') }}">See all</a></li>
+                    <li><a href="{{ url('user/create') }}">Add</a></li>
+{{--
                     <li><a href="#">Roles</a></li>
                     <li><a href="#">Blog report</a></li>
+--}}
                 </ul>
             </li>
 
+{{--
 			<!-- Message -->
-<!--
             <li>
                 <a href="#">
                     <i class="fa fa-envelope"></i> <span>Message</span>
                 </a>
             </li>
--->
-
+--}}
 			<!-- Articles -->
             <li class="treeview">
                 <a href="#">
@@ -63,7 +64,7 @@
 				</a>
                 <ul class="treeview-menu">
                     <li><a href="#">See all</a></li>
-                    <li><a href="#">Add</a></li>
+                    <li><a href="{!! url('blog/create') !!}">Add</a></li>
                 </ul>
             </li>
 

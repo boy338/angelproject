@@ -64,13 +64,11 @@ class UserRepository extends BaseRepository
     public function getUsersWithRole($n, $role)
     {
         $query = $this->model->with('role')->oldest('seen')->latest();
-
         if ($role != 'total') {
             $query->whereHas('role', function ($q) use ($role) {
                 $q->whereSlug($role);
             });
         }
-
         return $query->paginate($n);
     }
 
@@ -102,7 +100,7 @@ class UserRepository extends BaseRepository
     {
         $counts = [
             'admin' => $this->count('admin'),
-            'redac' => $this->count('redac'),
+            'author' => $this->count('author'),
             'user' => $this->count('user')
         ];
 

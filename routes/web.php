@@ -36,6 +36,10 @@ Route::get('/activity', function() {
 	return view('activity');
 });
 
+Route::get('/back', function() {
+    return view('backend.dashboard');
+});
+
 // Auth
 Auth::routes();
 
@@ -45,6 +49,16 @@ Route::resource('contact', 'ContactController', ['except' => ['show', 'edit']]);
 // Email confirmation
 Route::get('resend', 'Auth\RegisterController@resend');
 Route::get('confirm/{token}', 'Auth\RegisterController@confirm');
+
+// Users
+Route::get('user/sort/{role?}', 'UserController@index');
+Route::get('user/blog-report', 'UserController@blogReport')->name('user.blog.report');
+Route::resource('user', 'UserController', ['except' => 'index']);
+Route::put('userseen/{user}', 'UserAjaxController@updateSeen');
+//Route::put('uservalid/{id}', 'UserAjaxController@valid');
+
+// Blog
+Route::resource('blog', 'BlogController', ['except' => 'show']);
 
 
 Route::get('/home', 'HomeController@index');
