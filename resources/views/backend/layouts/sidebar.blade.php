@@ -99,18 +99,10 @@
             </li>
 
 			<!-- Medias -->
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-folder-open-o"></i>
-					<span>Medias</span>
-					<span class="pull-right-container">
-						<i class="fa fa-angle-left pull-right"></i>
-					</span>
+            <li>
+                <a href="{{ url('medias') }}">
+                    <i class="fa fa-folder-open-o"></i> <span>Medias</span>
                 </a>
-				<ul class="treeview-menu">
-                    <li><a href="#">images</a></li>
-                    <li><a href="#">videos</a></li>
-                </ul>
             </li>
 
 			<!-- Comment -->

@@ -42,7 +42,6 @@ Route::get('/back', function() {
 
 // Auth
 Auth::routes();
-
 // Contact
 Route::resource('contact', 'ContactController', ['except' => ['show', 'edit']]);
 
@@ -60,5 +59,8 @@ Route::put('userseen/{user}', 'UserAjaxController@updateSeen');
 // Blog
 Route::resource('blog', 'BlogController', ['except' => 'show']);
 
+// Medias
+//Route::get('medias', 'FilemanagerController')->name('medias');
 
 Route::get('/home', 'HomeController@index');
+
