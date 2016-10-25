@@ -60,7 +60,7 @@ Route::put('userseen/{user}', 'UserAjaxController@updateSeen');
 Route::resource('blog', 'BlogController', ['except' => 'show']);
 
 // Medias
-//Route::get('medias', 'FilemanagerController')->name('medias');
+Route::get('medias', 'FilemanagerController')->name('medias');
 
 Route::get('/home', 'HomeController@index');
 
