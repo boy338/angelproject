@@ -62,5 +62,8 @@ Route::resource('blog', 'BlogController', ['except' => 'show']);
 // Medias
 Route::get('medias', 'FilemanagerController')->name('medias');
 
+// Category
+Route::post('categorynew', 'CategoryAjaxController@categoryNew');
+
 Route::get('/home', 'HomeController@index');
 

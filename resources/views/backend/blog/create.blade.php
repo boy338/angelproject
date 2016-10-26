@@ -14,7 +14,30 @@
 					<small>Advanced and full of features</small>
 				</h3>
 
-				<form class="form-horizontal" action="" method="post" >
+				<form class="form-horizontal" action="{{ url('blog') }}" method="post" >
+					{{ csrf_field() }}
+
+            @if (count($errors) > 0)
+            <!-- False message -->
+            <div class="alert alert-danger">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span>
+                    <span class="sr-only">Close</span>
+                </button>
+                <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+                </ul>
+            </div>
+            @endif
+
+            @if(session()->has('success'))
+            <!-- Success message -->
+                @include('partials/alert', ['type' => 'success', 'message' => session('success')])
+            @endif
+
+
 					<div class="box-body">
 						<!-- Text input-->
 						<div class="form-group">
@@ -22,7 +45,7 @@
 							<div class="col-md-6">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-pencil-square-o"></i></span>
-									<input name="title" placeholder="" class="form-control" value="" id="title" type="text">
+									<input name="title" placeholder="" class="form-control"  id="title" value="{{ old('title') }}" type="text">
 								</div>
 							</div>
 						</div>
@@ -33,7 +56,7 @@
 							<div class="col-md-6">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-link"></i> {!! url('/blog/') !!}/</span>
-									<input name="slug" placeholder="" class="form-control" value="" id="permalink" type="text">
+									<input name="slug" placeholder="" class="form-control" id="permalink" value="{{ old('slug') }}" type="text">
 								</div>
 							</div>
 						</div>
@@ -43,17 +66,55 @@
 							<div class="col-md-6 inputGroupContainer">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-tags"></i></span>
-									<input name="tags" placeholder="" class="form-control" value="" type="text">
+									<input name="tags" placeholder="" class="form-control" value="{{ old('tags') }}" type="text">
 								</div>
 								<small class="help-block">Explode multi tag width , </small>
 							</div>
-						</div>
+						</div>	
 
+						<div class="form-group">
+                            <label class="col-md-1 control-label" >Categories</label>
+                            <div class="col-md-6">
+
+								<div class="box box-default box-solid">
+									<div class="box-header with-border">
+										<div class="form-inline">
+											<h3 class="box-title">Category List</h3>
+											<input class="form-control input-sm" type="text" id="category-new" value="" placeholder="new category">
+											<button type="button" class="btn btn-primary btn-xs" id="new_category">
+                                            	<i class="fa fa-plus-circle" aria-hidden="true"></i>
+                                            	new
+                                        	</button>
+
+										</div>
+											
+										<div class="box-tools pull-right">
+											<button type="button" class="btn btn-box-tool" data-widget="collapse">
+												<i class="fa fa-minus"></i>
+											</button>
+										</div>
+									</div>
+									<div class="box-body" id="category-list">
+										@foreach($categories as $category)
+										<div class="col-md-4">
+											<label class="checkbox-inline">
+												<input type="checkbox" name="category[]" value="{{ $category->id }}">
+												{{ $category->category }}
+											</label>
+										</div>
+										@endforeach
+									</div>
+								</div>
+
+                            </div>
+                        </div>
+
+{{--
 						<div class="form-group">
 							<label class="col-md-1 control-label" >Category</label>
 							<div class="col-md-6">
 								<div class="input-group" style="width: 100%;">
-									<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" name="category">
+									<select class="form-control select2" multiple="multiple" data-placeholder="Select a State" name="categorys[]">
 										<option>Alabama</option>
 										<option>Alaska</option>
 										<option>California</option>
@@ -65,6 +126,8 @@
 								</div>
 							</div>
 						</div>
+--}}
+
 
         			    <div class="form-group">
 							<label class="col-md-1 control-label" >Option </label>
@@ -108,7 +171,7 @@
 		</div>
 	</div>
 </div>
-
+<meta name="_token" content="{!! csrf_token() !!}" />
 @endsection
 
 @section('script')
@@ -167,6 +230,44 @@
                 .replace(/\s/g, '-');
             $("#permalink").val(str);
         });
+
+		$('#new_category').click(function(){
+			var category = $('#category-new').val();
+			if(category.trim().length <= 0){
+				$('#category-new').val('');
+				return false;
+			}
+			$.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+                }
+            });
+			$.ajax({
+                url: '{!! url('categorynew') !!}',
+                type: 'POST',
+				dataType: "JSON",
+                data: {
+					'category': $('#category-new').val(),
+					'_token': '{!! csrf_token() !!}'
+				},
+				success: function(data){
+					alert(JSON.stringify(data));
+					var tag = '<div class="col-md-4">'
+							  +'<label class="checkbox-inline">'
+							  +'<input type="checkbox" name="category[]" value="'+ data.id +'">'
+							  + data.category
+							  +'</label>'
+							  +'</div>';
+					$('#category-list').append(tag);
+					$('#category-new').val('');
+				},
+				error: function(xhr, status, error) {
+					$('#category-new').val('');
+  					var err = eval("(" + xhr.responseText + ")");
+  					alert(err.Message);
+				}
+            })
+		});
 
 	});
 </script>
